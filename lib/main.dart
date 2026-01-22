@@ -1,6 +1,15 @@
+import 'package:cinema_box/movies/data/datasource/movie_reomte_data_source.dart';
+import 'package:cinema_box/movies/data/repository/movies_repository.dart';
+import 'package:cinema_box/movies/domain/usecase/get_now_playing_movies_usecase.dart';
+import 'package:cinema_box/movies/domain/usecase/get_popular_movies_usecase.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main()async  {
+  WidgetsFlutterBinding.ensureInitialized();
+  final res=await GetPopularMoviesUsecase(MoviesRepository(MovieRemoteDataSource())).execute();
+  print("*******************************");
+  print( res);
+  print("*******************************");
   runApp(const MyApp());
 }
 
@@ -25,7 +34,7 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // state is not lost during the reload. To reset the state, use hot
         // restart instead.
-        //
+        //)
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),

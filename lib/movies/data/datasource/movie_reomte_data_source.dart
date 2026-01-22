@@ -1,3 +1,5 @@
+import 'package:cinema_box/core/error/error_model.dart';
+import 'package:cinema_box/core/error/exceptions.dart';
 import 'package:cinema_box/core/utils/constants/constants.dart';
 import 'package:cinema_box/movies/data/model/movies_model.dart';
 import 'package:dio/dio.dart';
@@ -13,7 +15,7 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
   Future<List<MoviesModel>> getNowPlayingMovies() async {
     try {
       final response = await Dio().get(
-        '${Constants.baseUrl}movie/now_playing?api_key=${Constants.apiKey}',
+        Constants.nowPlayingMoviesPath,
       );
       return List<MoviesModel>.from(
         response.data['results'].map((e) => MoviesModel.fromJson(e)),
@@ -27,7 +29,7 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
   Future<List<MoviesModel>> getPopularMovies() async {
     try {
       final response = await Dio().get(
-        '${Constants.baseUrl}movie/popular?api_key=${Constants.apiKey}',
+        Constants.popularMoviesPath,
       );
       if (response.statusCode == 200) {
         return List<MoviesModel>.from(
@@ -45,14 +47,14 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
   Future<List<MoviesModel>> getTopRatedMovies() async {
     try {
       final Response = await Dio().get(
-        '${Constants.baseUrl}movie/top_rated?api_key=${Constants.apiKey}',
+        Constants.topRatedMoviesPath,
       );
       if (Response.statusCode == 200) {
         return List<MoviesModel>.from(
           Response.data['results'].map((e) => MoviesModel.fromJson(e)),
         );
       } else {
-        throw Exception(Response.statusMessage);
+         throw ServerExceptions(errorModel:ErrorModel.fromJson(Response.data));   
       }
     } catch (e) {
       throw e.toString();
