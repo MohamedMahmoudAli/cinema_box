@@ -1,14 +1,15 @@
 import 'package:cinema_box/movies/data/datasource/movie_reomte_data_source.dart';
 import 'package:cinema_box/movies/data/repository/movies_repository.dart';
-import 'package:cinema_box/movies/domain/usecase/get_now_playing_movies_usecase.dart';
 import 'package:cinema_box/movies/domain/usecase/get_popular_movies_usecase.dart';
 import 'package:flutter/material.dart';
 
-void main()async  {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final res=await GetPopularMoviesUsecase(MoviesRepository(MovieRemoteDataSource())).execute();
+  final res = await GetPopularMoviesUsecase(
+    MoviesRepository(MovieRemoteDataSource()),
+  ).execute();
   print("*******************************");
-  print( res);
+  print(res);
   print("*******************************");
   runApp(const MyApp());
 }

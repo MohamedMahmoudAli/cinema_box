@@ -21,6 +21,7 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
         response.data['results'].map((e) => MoviesModel.fromJson(e)),
       );
     } catch (e) {
+      
       throw e.toString();
     }
   }
@@ -46,15 +47,15 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
   @override
   Future<List<MoviesModel>> getTopRatedMovies() async {
     try {
-      final Response = await Dio().get(
+      final response = await Dio().get(
         Constants.topRatedMoviesPath,
       );
-      if (Response.statusCode == 200) {
+      if (response.statusCode == 200) {
         return List<MoviesModel>.from(
-          Response.data['results'].map((e) => MoviesModel.fromJson(e)),
+          response.data['results'].map((e) => MoviesModel.fromJson(e)),
         );
       } else {
-         throw ServerExceptions(errorModel:ErrorModel.fromJson(Response.data));   
+         throw ServerExceptions(errorModel:ErrorModel.fromJson(response.data));   
       }
     } catch (e) {
       throw e.toString();

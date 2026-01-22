@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
-import '../error/exceptions.dart';
 
 class DioClient {
   final Dio _dio = Dio();
 
-  Future<Response> get(String path, {Map<String, dynamic>? queryParameters}) async {
+  Future<Response> get(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+  }) async {
     try {
       final response = await _dio.get(path, queryParameters: queryParameters);
       return _handleResponse(response); // Handle 200-299
@@ -17,5 +19,4 @@ class DioClient {
     // Even if 200, some APIs return success: false in the body
     return response;
   }
-
 }

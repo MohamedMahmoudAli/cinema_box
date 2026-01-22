@@ -1,7 +1,9 @@
+import 'package:cinema_box/core/error/failure.dart';
 import 'package:cinema_box/movies/domain/entities/Movie.dart';
+import 'package:dartz/dartz.dart';
 
 abstract class BaseMovieRepository {
-  Future<List<Movie>> getNowPlayingMovies();
-  Future<List<Movie>> getPopularMovies();
-  Future<List<Movie>> getTopRatedMovies();
+  Future<Either<Failure, List<Movie>>> getNowPlayingMovies();
+  Future<Either<Failure, List<Movie>>>getPopularMovies();
+  Future<Either<Failure, List<Movie>>> getTopRatedMovies();
 }
