@@ -5,5 +5,5 @@ class GetPopularMoviesUsecase {
   final BaseMovieRepository repository;
   GetPopularMoviesUsecase(this.repository);
 
-  Future<List<Movie>> execute() => repository.getPopularMovies();
+  Future<List<Movie>> execute() async=>  await repository.getPopularMovies();
 }
